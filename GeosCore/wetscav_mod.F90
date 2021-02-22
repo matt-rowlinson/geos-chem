@@ -3657,25 +3657,31 @@ CONTAINS
             Spc(I,J,L,N) < 0e+0_fp     .or.                                  & 
             DSpc(NW,L,I,J) < 0e+0_fp ) THEN
 
-          ! Print error message
-          IF ( errPrint ) THEN
+          Spc(I,J,L,N) = 0e+0_fp
+          IF ( IT_IS_NAN( Spc(I,J,L,N) )  .or.                                  &
+               Spc(I,J,L,N) < 0e+0_fp     .or.                                  & 
+               DSpc(NW,L,I,J) < 0e+0_fp ) THEN
+             
+             ! Print error message
+             IF ( errPrint ) THEN
              CALL SAFETY( I, J, L, N, ERRMSG,                     &
-                          LS          = LS,                       &
-                          PDOWN       = State_Met%PDOWN(L,I,J),   &
-                          QQ          = State_Met%QQ(L,I,J),      &
-                          ALPHA       = 0e+0_fp,                  &
-                          ALPHA2      = 0e+0_fp,                  &
-                          RAINFRAC    = RAINFRAC,                 &
-                          WASHFRAC    = 0e+0_fp,                  &
-                          MASS_WASH   = 0e+0_fp,                  &
-                          MASS_NOWASH = 0e+0_fp,                  &
-                          WETLOSS     = WETLOSS,                  &
-                          GAINED      = 0e+0_fp,                  &
-                          LOST        = 0e+0_fp,                  &
-                          State_Grid  = State_Grid,               &
-                          DSpc        = DSpc(NW,:,I,J),           &
-                          Spc         = Spc(I,J,:,N),             &
-                          RC          = RC )
+                             LS          = LS,                       &
+                             PDOWN       = State_Met%PDOWN(L,I,J),   &
+                             QQ          = State_Met%QQ(L,I,J),      &
+                             ALPHA       = 0e+0_fp,                  &
+                             ALPHA2      = 0e+0_fp,                  &
+                             RAINFRAC    = RAINFRAC,                 &
+                             WASHFRAC    = 0e+0_fp,                  &
+                             MASS_WASH   = 0e+0_fp,                  &
+                             MASS_NOWASH = 0e+0_fp,                  &
+                             WETLOSS     = WETLOSS,                  &
+                             GAINED      = 0e+0_fp,                  &
+                             LOST        = 0e+0_fp,                  &
+                             State_Grid  = State_Grid,               &
+                             DSpc        = DSpc(NW,:,I,J),           &
+                             Spc         = Spc(I,J,:,N),             &
+                             RC          = RC )
+             ENDIF
           ENDIF
 
           ! Trap potential errors
